@@ -1,0 +1,312 @@
+<!doctype html>
+<html lang="ca">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>webcoop · software a mida per a l'Economia Social i Solidària</title>
+  <meta name="description" content="Fem software a mida per a cooperatives, associacions i entitats de l'Economia Social i Solidària, i integrem la IA als seus processos.">
+  <link rel="icon" href="favicon.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #fbfaf7;
+      --surface: #ffffff;
+      --text: #1d1f1e;
+      --muted: #5d6460;
+      --line: #e3e1da;
+      --accent: #17865b;
+      --accent-soft: #e6f2ec;
+      --max: 1080px;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #141615;
+        --surface: #1b1e1c;
+        --text: #ecebe6;
+        --muted: #a2a8a4;
+        --line: #2c302e;
+        --accent: #3fbf8a;
+        --accent-soft: #1d2b24;
+      }
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font: 400 17px/1.6 "IBM Plex Sans", system-ui, sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; }
+    .wrap { max-width: var(--max); margin: 0 auto; padding: 0 24px; }
+    .mono { font-family: "IBM Plex Mono", ui-monospace, monospace; }
+
+    /* Capçalera */
+    header {
+      position: sticky; top: 0; z-index: 10;
+      background: color-mix(in srgb, var(--bg) 88%, transparent);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--line);
+    }
+    header .wrap { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+    .logo { font: 500 20px "IBM Plex Mono", monospace; text-decoration: none; letter-spacing: -0.02em; }
+    .logo img { display: block; height: 26px; width: auto; }
+    @media (prefers-color-scheme: dark) { .logo img { filter: invert(1) hue-rotate(180deg); } }
+    nav { display: flex; gap: 28px; font-size: 15px; }
+    nav a { text-decoration: none; color: var(--muted); }
+    nav a:hover { color: var(--text); }
+
+    /* Hero */
+    .hero { padding-top: 120px; padding-bottom: 96px; }
+    .eyebrow { font: 500 13px "IBM Plex Mono", monospace; color: var(--accent); text-transform: uppercase; letter-spacing: 0.08em; margin: 0 0 20px; }
+    h1 {
+      font-weight: 600; font-size: clamp(36px, 5.4vw, 60px); line-height: 1.08;
+      letter-spacing: -0.025em; margin: 0 0 28px; max-width: 16ch;
+    }
+    .lead { font-size: 20px; color: var(--muted); max-width: 58ch; margin: 0 0 40px; }
+    .btn {
+      display: inline-block; padding: 13px 22px; border-radius: 6px;
+      background: var(--accent); color: #fff; text-decoration: none; font-weight: 500;
+    }
+    .btn:hover { filter: brightness(1.08); }
+    .btn-ghost { background: transparent; color: var(--text); border: 1px solid var(--line); margin-left: 8px; }
+    .btn-ghost:hover { border-color: var(--muted); filter: none; }
+
+    section { padding: 88px 0; border-top: 1px solid var(--line); }
+    h2 { font-size: 30px; font-weight: 600; letter-spacing: -0.02em; margin: 0 0 12px; }
+    .section-intro { color: var(--muted); max-width: 60ch; margin: 0 0 48px; }
+
+    /* Què fem */
+    .services { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
+    .service { background: var(--surface); padding: 32px 28px; }
+    .service .num { font: 500 13px "IBM Plex Mono", monospace; color: var(--accent); }
+    .service h3 { font-size: 19px; font-weight: 600; margin: 14px 0 10px; }
+    .service p { color: var(--muted); margin: 0 0 16px; font-size: 16px; }
+    .service ul { margin: 0; padding: 0; list-style: none; font-size: 15px; }
+    .service li { padding: 6px 0; border-top: 1px dashed var(--line); }
+
+    /* Projectes */
+    .projects { display: grid; gap: 56px; }
+    .project { display: grid; grid-template-columns: 1.15fr 1fr; gap: 48px; align-items: center; }
+    .project:nth-child(even) .shot { order: 2; }
+    .shot {
+      display: block; border: 1px solid var(--line); border-radius: 10px; overflow: hidden;
+      background: var(--surface); box-shadow: 0 1px 2px rgba(0,0,0,.04), 0 12px 32px -16px rgba(0,0,0,.18);
+      transition: transform .2s ease;
+    }
+    .shot:hover { transform: translateY(-3px); }
+    .shot .bar { height: 26px; border-bottom: 1px solid var(--line); display: flex; align-items: center; gap: 6px; padding: 0 10px; }
+    .shot .bar i { width: 9px; height: 9px; border-radius: 50%; background: var(--line); }
+    .shot img { display: block; width: 100%; height: auto; }
+    .tag { display: inline-block; font: 500 12px "IBM Plex Mono", monospace; color: var(--accent); background: var(--accent-soft); padding: 3px 9px; border-radius: 4px; margin-bottom: 14px; }
+    .project h3 { font-size: 24px; font-weight: 600; letter-spacing: -0.015em; margin: 0 0 12px; }
+    .project p { color: var(--muted); margin: 0 0 16px; }
+    .project .link { font-size: 15px; font-weight: 500; color: var(--accent); text-decoration: none; }
+    .project .link:hover { text-decoration: underline; }
+
+    /* Com treballem */
+    .values { display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; }
+    .values h3 { font-size: 16px; font-weight: 600; margin: 0 0 8px; }
+    .values p { font-size: 15px; color: var(--muted); margin: 0; }
+
+    /* Contacte */
+    .contact { text-align: left; }
+    .contact h2 { font-size: clamp(28px, 4vw, 40px); max-width: 20ch; }
+    .contact .mail { font: 500 clamp(20px, 3vw, 28px) "IBM Plex Mono", monospace; color: var(--accent); text-decoration: none; border-bottom: 2px solid var(--accent-soft); }
+    .contact .mail:hover { border-color: var(--accent); }
+
+    footer { border-top: 1px solid var(--line); padding: 28px 0 40px; font-size: 14px; color: var(--muted); }
+    footer .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+    footer a { color: var(--muted); }
+
+    @media (max-width: 860px) {
+      nav { display: none; }
+      .hero { padding-top: 72px; padding-bottom: 64px; }
+      section { padding: 64px 0; }
+      .services { grid-template-columns: 1fr; }
+      .project { grid-template-columns: 1fr; gap: 24px; }
+      .project:nth-child(even) .shot { order: 0; }
+      .values { grid-template-columns: 1fr 1fr; }
+      .btn-ghost { margin-left: 0; margin-top: 10px; }
+    }
+    @media (max-width: 520px) {
+      .wrap { padding-left: 16px; padding-right: 16px; }
+      .values { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <a class="logo" href="#"><img src="img/logo.svg" alt="webcoop" width="170" height="26"></a>
+    <nav>
+      <a href="#que-fem">Què fem</a>
+      <a href="#projectes">Projectes</a>
+      <a href="#com-treballem">Com treballem</a>
+      <a href="#contacte">Contacte</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="wrap hero">
+    <p class="eyebrow">Software per a l'Economia Social i Solidària</p>
+    <h1>Eines digitals a mida per a entitats que transformen.</h1>
+    <p class="lead">
+      Fem programari a mida per a cooperatives, associacions i entitats de l'ESS:
+      aplicacions de gestió, plataformes web i integracions amb intel·ligència artificial
+      que s'adapten a com treballeu, i no al revés.
+    </p>
+    <a class="btn" href="#contacte">Parlem del vostre projecte</a>
+    <a class="btn btn-ghost" href="#projectes">Veure projectes</a>
+  </div>
+
+  <section id="que-fem">
+    <div class="wrap">
+      <h2>Què fem</h2>
+      <p class="section-intro">Escoltem com funciona la vostra entitat i construïm l'eina que us falta. Després la mantenim i la fem créixer amb vosaltres.</p>
+      <div class="services">
+        <div class="service">
+          <span class="num">01</span>
+          <h3>Software a mida</h3>
+          <p>Aplicacions de gestió pensades per a la manera de fer de cada entitat.</p>
+          <ul>
+            <li>ERP i gestió de projectes</li>
+            <li>Logística i comandes</li>
+            <li>Facturació i tresoreria</li>
+          </ul>
+        </div>
+        <div class="service">
+          <span class="num">02</span>
+          <h3>Integracions amb IA</h3>
+          <p>Automatitzem tasques repetitives dels vostres processos amb IA, amb criteri i sense perdre'n el control.</p>
+          <ul>
+            <li>Lectura de factures i documents</li>
+            <li>Assistents sobre la vostra documentació</li>
+            <li>Classificació i resums automàtics</li>
+          </ul>
+        </div>
+        <div class="service">
+          <span class="num">03</span>
+          <h3>Plataformes web</h3>
+          <p>Webs i plataformes amb contingut, usuàries i formació en línia.</p>
+          <ul>
+            <li>Webs institucionals</li>
+            <li>Plataformes de formació (LMS)</li>
+            <li>Allotjament i manteniment</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="projectes">
+    <div class="wrap">
+      <h2>Alguns projectes</h2>
+      <p class="section-intro">Eines que funcionen cada dia per a entitats reals.</p>
+      <div class="projects">
+
+        <article class="project">
+          <a class="shot" href="https://esstrapis.org" target="_blank" rel="noopener">
+            <div class="bar"><i></i><i></i><i></i></div>
+            <img src="img/esstrapis.jpg" alt="Pàgina d'inici d'ESSTrapis" loading="lazy" width="960" height="540">
+          </a>
+          <div>
+            <span class="tag">ERP</span>
+            <h3>ESSTrapis</h3>
+            <p>Programari de gestió per a cooperatives i entitats de l'ESS: projectes, hores, factures, tresoreria, subvencions i logística en un sol lloc. Programari lliure, en ús per diverses entitats.</p>
+            <a class="link" href="https://esstrapis.org" target="_blank" rel="noopener">esstrapis.org →</a>
+          </div>
+        </article>
+
+        <article class="project">
+          <a class="shot" href="https://edu.urbanresilienceresearch.net/" target="_blank" rel="noopener">
+            <div class="bar"><i></i><i></i><i></i></div>
+            <img src="img/lms.jpg" alt="Plataforma de formació de l'Urban Resilience Research Network" loading="lazy" width="960" height="540">
+          </a>
+          <div>
+            <span class="tag">LMS</span>
+            <h3>URRN Education</h3>
+            <p>Plataforma de formació en línia de l'Urban Resilience Research Network, per acostar la recerca sobre resiliència urbana a la pràctica: cursos, inscripcions i seguiment de l'alumnat.</p>
+            <a class="link" href="https://edu.urbanresilienceresearch.net/" target="_blank" rel="noopener">edu.urbanresilienceresearch.net →</a>
+          </div>
+        </article>
+
+        <article class="project">
+          <a class="shot" href="https://resilience.earth/" target="_blank" rel="noopener">
+            <div class="bar"><i></i><i></i><i></i></div>
+            <img src="img/earth.jpg" alt="Web de Resilience Earth" loading="lazy" width="960" height="540">
+          </a>
+          <div>
+            <span class="tag">Web</span>
+            <h3>Resilience Earth</h3>
+            <p>Web de la cooperativa Resilience Earth, consultoria estratègica en resiliència i regeneració per a organitzacions, institucions i comunitats, amb un gestor de continguts a mida.</p>
+            <a class="link" href="https://resilience.earth/" target="_blank" rel="noopener">resilience.earth →</a>
+          </div>
+        </article>
+
+        <article class="project">
+          <a class="shot" href="https://sismograf.resilience.earth/" target="_blank" rel="noopener">
+            <div class="bar"><i></i><i></i><i></i></div>
+            <img src="img/sismograf.jpg" alt="El Sismògraf, eina de diagnosi de resiliència" loading="lazy" width="960" height="540">
+          </a>
+          <div>
+            <span class="tag">Eina de diagnosi</span>
+            <h3>El Sismògraf</h3>
+            <p>Eina en línia per avaluar el grau de resiliència d'una organització, comunitat o projecte: un qüestionari guiat que mostra quins aspectes cal treballar.</p>
+            <a class="link" href="https://sismograf.resilience.earth/" target="_blank" rel="noopener">sismograf.resilience.earth →</a>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <section id="com-treballem">
+    <div class="wrap">
+      <h2>Com treballem</h2>
+      <p class="section-intro">Som part de l'Economia Social i Solidària i treballem amb els seus valors.</p>
+      <div class="values">
+        <div>
+          <h3>Programari lliure</h3>
+          <p>Fem servir tecnologies obertes i el codi és vostre. Sense dependències d'un sol proveïdor.</p>
+        </div>
+        <div>
+          <h3>De prop</h3>
+          <p>Tracte directe amb qui programa. Entenem el problema abans d'escriure codi.</p>
+        </div>
+        <div>
+          <h3>IA amb criteri</h3>
+          <p>Només on aporta valor, amb les dades protegides i una persona sempre al final de la decisió.</p>
+        </div>
+        <div>
+          <h3>A llarg termini</h3>
+          <p>Allotgem, mantenim i fem evolucionar les eines amb vosaltres, any rere any.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contacte" class="contact">
+    <div class="wrap">
+      <h2>Teniu una idea o un procés que us fa perdre temps?</h2>
+      <p class="section-intro">Expliqueu-nos-ho i en parlem, sense compromís.</p>
+      <a class="mail" href="mailto:hola@webcoop.cat">hola@webcoop.cat</a>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 webcoop · Software ètic per a l'ESS</span>
+    <span><a href="https://github.com/zarpilla" target="_blank" rel="noopener">GitHub</a></span>
+  </div>
+</footer>
+
+</body>
+</html>
